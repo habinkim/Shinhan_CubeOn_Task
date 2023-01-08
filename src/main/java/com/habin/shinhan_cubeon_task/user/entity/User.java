@@ -1,4 +1,4 @@
-package com.habin.shinhan_cubeon_task.user;
+package com.habin.shinhan_cubeon_task.user.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

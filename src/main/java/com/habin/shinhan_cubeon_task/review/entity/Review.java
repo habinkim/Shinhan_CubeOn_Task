@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.habin.shinhan_cubeon_task.common.json.CustomLocalDateTimeDeserializer;
 import com.habin.shinhan_cubeon_task.common.json.CustomLocalDateTimeSerializer;
-import com.habin.shinhan_cubeon_task.user.User;
+import com.habin.shinhan_cubeon_task.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
