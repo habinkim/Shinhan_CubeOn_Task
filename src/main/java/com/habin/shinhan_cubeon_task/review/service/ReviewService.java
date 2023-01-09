@@ -2,11 +2,14 @@ package com.habin.shinhan_cubeon_task.review.service;
 
 import com.habin.shinhan_cubeon_task.common.dto.ApiResponse;
 import com.habin.shinhan_cubeon_task.review.dto.ReviewCreateDto;
+import com.habin.shinhan_cubeon_task.review.dto.ReviewListDto;
 import com.habin.shinhan_cubeon_task.review.dto.ReviewUpdateDto;
 import com.habin.shinhan_cubeon_task.review.entity.Review;
 import com.habin.shinhan_cubeon_task.review.mapper.ReviewMapper;
 import com.habin.shinhan_cubeon_task.review.repository.ReviewRepository;
+import com.querydsl.core.types.Order;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +27,9 @@ public class ReviewService {
     private final ReviewMapper reviewMapper;
 
     @Transactional(readOnly = true)
-    public ApiResponse<?> list() {
-        return null;
+    public ResponseEntity<ApiResponse<Page<ReviewListDto>>> list(Boolean recent, Order grade, Integer pageNo) {
+        Page<ReviewListDto> list = reviewRepository.list(recent, grade, pageNo);
+        return ApiResponse.success(list);
     }
 
     @Transactional

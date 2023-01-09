@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReviewListResponseDto {
+public class ReviewListDto {
 
     private Long reviewId;
     private Integer grade;

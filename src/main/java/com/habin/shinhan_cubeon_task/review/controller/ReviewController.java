@@ -2,10 +2,13 @@ package com.habin.shinhan_cubeon_task.review.controller;
 
 import com.habin.shinhan_cubeon_task.common.dto.ApiResponse;
 import com.habin.shinhan_cubeon_task.review.dto.ReviewCreateDto;
+import com.habin.shinhan_cubeon_task.review.dto.ReviewListDto;
 import com.habin.shinhan_cubeon_task.review.dto.ReviewUpdateDto;
 import com.habin.shinhan_cubeon_task.review.service.ReviewService;
+import com.querydsl.core.types.Order;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +20,10 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @GetMapping
-    public ApiResponse<?> list() {
-        return reviewService.list();
+    public ResponseEntity<ApiResponse<Page<ReviewListDto>>> list(@RequestParam Boolean recent,
+                                                                 @RequestParam Order grade,
+                                                                 @RequestParam Integer pageNo) {
+        return reviewService.list(recent, grade, pageNo);
     }
 
     @PostMapping
@@ -35,6 +40,5 @@ public class ReviewController {
     public ResponseEntity<ApiResponse<Object>> delete(@Valid @PathVariable Long reviewId) {
         return reviewService.delete(reviewId);
     }
-
 
 }
