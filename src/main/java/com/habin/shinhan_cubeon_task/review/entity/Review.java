@@ -65,4 +65,8 @@ public class Review {
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
 
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "lectureId", referencedColumnName = "lectureId")
+    private Lecture lecture;
+
 }

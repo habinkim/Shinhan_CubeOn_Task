@@ -19,12 +19,14 @@ public interface ReviewMapper {
 	@Mapping(target = "reviewId", ignore = true)
 	@Mapping(target = "likeCount", constant = "0")
 	@Mapping(target = "user", source = "userId")
+	@Mapping(target = "lecture", constant = "1")
 	@Mapping(target = "updatedAt", expression = "java(java.time.LocalDateTime.now())")
 	@Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())")
 	Review createDtoToEntity(ReviewCreateDto reviewCreateDto);
 
     @Mapping(target = "likeCount", ignore = true)
 	@Mapping(target = "user", ignore = true)
+	@Mapping(target = "lecture", constant = "1")
 	@Mapping(target = "updatedAt", ignore = true)
 	@Mapping(target = "createdAt", ignore = true)
 	Review.ReviewBuilder updateDtoToEntity(ReviewUpdateDto reviewUpdateDto, @MappingTarget Review.ReviewBuilder review);

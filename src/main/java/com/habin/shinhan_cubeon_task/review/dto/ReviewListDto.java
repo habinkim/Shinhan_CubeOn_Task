@@ -33,4 +33,6 @@ public class ReviewListDto {
     private String userId;
     private String nickname;
 
+    private String lectureName;
+
 }

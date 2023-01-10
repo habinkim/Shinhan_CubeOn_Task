@@ -12,6 +12,7 @@ import org.springframework.data.support.PageableExecutionUtils;
 
 import java.util.List;
 
+import static com.habin.shinhan_cubeon_task.review.entity.QLecture.lecture;
 import static com.habin.shinhan_cubeon_task.review.entity.QReview.review;
 import static com.habin.shinhan_cubeon_task.user.entity.QUser.user;
 import static com.querydsl.core.types.Projections.fields;
@@ -23,7 +24,6 @@ public class QReviewRepositoryImpl implements QReviewRepository {
 
     @Override
     public Page<ReviewListDto> list(Boolean recent, Order grade, Integer pageNo) {
-
         PageRequest pageRequest = PageRequest.of(pageNo - 1, 10);
         OrderSpecifier<?>[] orderSpecifiers = getOrderSpecifier(recent, grade);
 
@@ -35,10 +35,12 @@ public class QReviewRepositoryImpl implements QReviewRepository {
                         review.createdAt,
                         review.updatedAt,
                         user.userId,
-                        user.nickname
+                        user.nickname,
+                        lecture.lectureName
                 ))
                 .from(review)
                 .join(review.user, user)
+                .join(review.lecture, lecture)
                 .offset(pageRequest.getOffset())
                 .limit(pageRequest.getPageSize())
                 .orderBy(orderSpecifiers)
