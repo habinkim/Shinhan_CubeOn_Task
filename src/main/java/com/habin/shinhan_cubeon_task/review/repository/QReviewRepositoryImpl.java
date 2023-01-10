@@ -54,6 +54,22 @@ public class QReviewRepositoryImpl implements QReviewRepository {
         return getPage(fetch, pageRequest, countQuery::fetchOne);
     }
 
+    @Override
+    public void increaseFavCount(Long reviewId) {
+        queryFactory.update(review)
+                .set(review.favCount, review.favCount.add(1))
+                .where(review.reviewId.eq(reviewId))
+                .execute();
+    }
+
+    @Override
+    public void decreaseFavCount(Long reviewId) {
+        queryFactory.update(review)
+                .set(review.favCount, review.favCount.subtract(1))
+                .where(review.reviewId.eq(reviewId))
+                .execute();
+    }
+
     private OrderSpecifier<?>[] getOrderSpecifier(Boolean recent, Order grade) {
         List<OrderSpecifier<?>> orderSpecifiers = new ArrayList<>();
         orderSpecifiers.add(review.favCount.desc());

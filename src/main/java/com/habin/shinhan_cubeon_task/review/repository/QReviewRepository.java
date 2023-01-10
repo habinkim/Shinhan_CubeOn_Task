@@ -6,4 +6,8 @@ import org.springframework.data.domain.Page;
 
 public interface QReviewRepository {
     Page<ReviewListDto> list(Boolean recent, Order grade, Integer pageNo);
+
+    void increaseFavCount(Long reviewId);
+
+    void decreaseFavCount(Long reviewId);
 }

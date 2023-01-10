@@ -9,6 +9,7 @@ import com.querydsl.core.types.Order;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,8 @@ public class ReviewController {
     @GetMapping
     public ResponseEntity<ApiResponse<Page<ReviewListDto>>> list(@RequestParam(name = "recent", required = false) Boolean recent,
                                                                  @RequestParam(name = "grade", required = false) Order grade,
-                                                                 @RequestParam(name = "pageNo") Integer pageNo) {
+                                                                 @RequestParam(name = "pageNo")
+                                                                 @Valid @Min(value = 1, message = "페이지 번호는 1 이상이어야 합니다.") Integer pageNo) {
         return reviewService.list(recent, grade, pageNo);
     }
 
@@ -48,7 +50,7 @@ public class ReviewController {
     @Tag(name = "강의 리뷰 관리 - /review", description = "강의 리뷰 정보 API")
     @Operation(summary = "강의 리뷰 삭제", description = "강의 리뷰 삭제 API")
     @DeleteMapping("/{reviewId}")
-    public ResponseEntity<ApiResponse<Object>> delete(@PathVariable Long reviewId) {
+    public ResponseEntity<ApiResponse<Object>> delete(@PathVariable(name = "reviewId") Long reviewId) {
         return reviewService.delete(reviewId);
     }
 

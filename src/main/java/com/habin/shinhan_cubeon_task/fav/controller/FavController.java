@@ -22,7 +22,8 @@ public class FavController {
     @Tag(name = "강의 리뷰 좋아요 관리 - /fav", description = "강의 리뷰 좋아요 정보 API")
     @Operation(summary = "강의 리뷰 좋아요", description = "강의 리뷰 좋아요 API")
     @PutMapping("/{reviewId}/{userId}")
-    public ResponseEntity<ApiResponse<Object>> fav(@PathVariable String userId, @PathVariable Long reviewId) {
+    public ResponseEntity<ApiResponse<Object>> fav(@PathVariable(name = "userId") String userId,
+                                                   @PathVariable(name = "reviewId") Long reviewId) {
         return favService.fav(userId, reviewId);
     }
 

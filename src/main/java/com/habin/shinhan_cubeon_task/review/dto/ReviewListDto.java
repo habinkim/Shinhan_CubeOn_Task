@@ -1,8 +1,6 @@
 package com.habin.shinhan_cubeon_task.review.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.habin.shinhan_cubeon_task.common.json.CustomLocalDateTimeDeserializer;
 import com.habin.shinhan_cubeon_task.common.json.CustomLocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,11 +21,9 @@ public class ReviewListDto {
     private Integer favCount;
     private String content;
 
-    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
     @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
     private LocalDateTime createdAt;
 
-    @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
     @JsonSerialize(using = CustomLocalDateTimeSerializer.class)
     private LocalDateTime updatedAt;
 

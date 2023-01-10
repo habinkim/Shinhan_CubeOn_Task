@@ -4,13 +4,11 @@ import com.habin.shinhan_cubeon_task.common.dto.ApiResponse;
 import com.habin.shinhan_cubeon_task.review.dto.ReviewCreateDto;
 import com.habin.shinhan_cubeon_task.review.dto.ReviewListDto;
 import com.habin.shinhan_cubeon_task.review.dto.ReviewUpdateDto;
-import com.habin.shinhan_cubeon_task.review.entity.Lecture;
 import com.habin.shinhan_cubeon_task.review.entity.Review;
 import com.habin.shinhan_cubeon_task.review.mapper.ReviewMapper;
 import com.habin.shinhan_cubeon_task.review.repository.LectureRepository;
 import com.habin.shinhan_cubeon_task.review.repository.ReviewRepository;
 import com.querydsl.core.types.Order;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -62,19 +60,5 @@ public class ReviewService {
 
     public static final Function<String, Supplier<NoSuchElementException>> getNSEE =
             (s) -> () -> new NoSuchElementException(s + "이(가) 존재하지 않습니다.");
-
-    @PostConstruct
-    @Transactional
-    public void initData() {
-        Lecture lecture = Lecture.builder()
-                .lectureId(1)
-                .lectureName("스프링 부트와 JPA로 초간단 API 개발하기")
-                .teacher("신한큐브온")
-                .difficulty("초급")
-                .lecturePeriod("무제한")
-                .build();
-
-        lectureRepository.save(lecture);
-    }
 
 }

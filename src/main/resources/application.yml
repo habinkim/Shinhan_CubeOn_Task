@@ -18,8 +18,6 @@ spring:
     hikari:
       maximum-pool-size: 60
       max-lifetime: 300000
-  cache:
-    type: redis
   jpa:
     database-platform: org.hibernate.dialect.MariaDBDialect
     show-sql: false
@@ -45,9 +43,6 @@ spring:
       WRITE_DATES_AS_TIMESTAMPS: false
   lifecycle:
     timeout-per-shutdown-phase: 10s
-  sql:
-    init:
-      mode: always
 
 springdoc:
   model-and-view-allowed: true
