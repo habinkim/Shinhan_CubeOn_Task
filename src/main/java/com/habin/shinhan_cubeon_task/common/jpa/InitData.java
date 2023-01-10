@@ -13,6 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+* @author : 김하빈(danny9643@naver.com)
+* @description : 테스트 데이터 생성 Component
+* @!
+* @?
+* @TODO Reivew 테스트 데이터 생성 로직 필요
+* @Date : 2023-01-10, 화, 15;26
+*/
 @Component
 @RequiredArgsConstructor
 public class InitData {

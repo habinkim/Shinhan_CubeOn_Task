@@ -43,12 +43,6 @@ spring:
   jackson:
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
-  servlet:
-    multipart:
-      location: '/upload/temp'
-      max-file-size: 8MB
-      max-request-size: 60MB
-      file-size-threshold: 60MB
   lifecycle:
     timeout-per-shutdown-phase: 10s
   sql:

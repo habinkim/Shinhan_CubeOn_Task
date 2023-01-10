@@ -64,12 +64,8 @@ public class QReviewRepositoryImpl implements QReviewRepository {
 
         if(grade != null) {
             switch (grade) {
-                case ASC -> {
-                    orderSpecifiers.add(review.grade.asc());
-                }
-                case DESC -> {
-                    orderSpecifiers.add(review.grade.desc());
-                }
+                case ASC -> orderSpecifiers.add(review.grade.asc());
+                case DESC -> orderSpecifiers.add(review.grade.desc());
             }
         }
 

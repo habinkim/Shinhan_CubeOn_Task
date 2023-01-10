@@ -19,6 +19,14 @@ import static com.habin.shinhan_cubeon_task.common.exception.GetPrintStackTrace.
 import static java.lang.System.lineSeparator;
 import static java.util.stream.Collectors.joining;
 
+/**
+* @author : 김하빈(danny9643@naver.com)
+* @description : Spring AOP Based Global Exception Handler
+* @!
+* @?
+* @TODO
+* @Date : 2023-01-10, 화, 15;27
+*/
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
