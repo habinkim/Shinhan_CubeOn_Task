@@ -40,12 +40,14 @@ public class ReviewService {
     }
 
     @Transactional
-    public ResponseEntity<ApiResponse<?>> update(ReviewUpdateDto reviewUpdateDto) {
+    public ResponseEntity<ApiResponse<Object>> update(ReviewUpdateDto reviewUpdateDto) {
         Review review = reviewRepository.findById(reviewUpdateDto.getReviewId())
                 .orElseThrow(getNSEE.apply("리뷰 정보"));
 
+        review = reviewMapper.updateDtoToEntity(reviewUpdateDto, review.toBuilder()).build();
+        reviewRepository.save(review);
 
-        return null;
+        return ApiResponse.success();
     }
 
     @Transactional

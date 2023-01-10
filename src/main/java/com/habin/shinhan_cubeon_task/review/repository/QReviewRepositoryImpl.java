@@ -3,7 +3,6 @@ package com.habin.shinhan_cubeon_task.review.repository;
 import com.habin.shinhan_cubeon_task.review.dto.ReviewListDto;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +14,7 @@ import java.util.List;
 
 import static com.habin.shinhan_cubeon_task.review.entity.QReview.review;
 import static com.habin.shinhan_cubeon_task.user.entity.QUser.user;
+import static com.querydsl.core.types.Projections.fields;
 
 @RequiredArgsConstructor
 public class QReviewRepositoryImpl implements QReviewRepository {
@@ -27,7 +27,7 @@ public class QReviewRepositoryImpl implements QReviewRepository {
         PageRequest pageRequest = PageRequest.of(pageNo - 1, 10);
         OrderSpecifier<?>[] orderSpecifiers = getOrderSpecifier(recent, grade);
 
-        List<ReviewListDto> fetch = queryFactory.select(Projections.fields(ReviewListDto.class,
+        List<ReviewListDto> fetch = queryFactory.select(fields(ReviewListDto.class,
                         review.reviewId,
                         review.grade,
                         review.likeCount,

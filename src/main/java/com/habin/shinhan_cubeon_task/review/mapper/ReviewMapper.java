@@ -2,6 +2,7 @@ package com.habin.shinhan_cubeon_task.review.mapper;
 
 import com.habin.shinhan_cubeon_task.common.mapper.EntityMapper;
 import com.habin.shinhan_cubeon_task.review.dto.ReviewCreateDto;
+import com.habin.shinhan_cubeon_task.review.dto.ReviewUpdateDto;
 import com.habin.shinhan_cubeon_task.review.entity.Review;
 import org.mapstruct.*;
 
@@ -22,4 +23,9 @@ public interface ReviewMapper {
 	@Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())")
 	Review createDtoToEntity(ReviewCreateDto reviewCreateDto);
 
+    @Mapping(target = "likeCount", ignore = true)
+	@Mapping(target = "user", ignore = true)
+	@Mapping(target = "updatedAt", ignore = true)
+	@Mapping(target = "createdAt", ignore = true)
+	Review.ReviewBuilder updateDtoToEntity(ReviewUpdateDto reviewUpdateDto, @MappingTarget Review.ReviewBuilder review);
 }

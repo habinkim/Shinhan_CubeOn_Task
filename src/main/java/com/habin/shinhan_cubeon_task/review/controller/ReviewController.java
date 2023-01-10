@@ -32,12 +32,12 @@ public class ReviewController {
     }
 
     @PutMapping
-    public ResponseEntity<ApiResponse<?>> update(@Valid @RequestBody ReviewUpdateDto reviewUpdateDto) {
+    public ResponseEntity<ApiResponse<Object>> update(@Valid @RequestBody ReviewUpdateDto reviewUpdateDto) {
         return reviewService.update(reviewUpdateDto);
     }
 
     @DeleteMapping("/{reviewId}")
-    public ResponseEntity<ApiResponse<Object>> delete(@Valid @PathVariable Long reviewId) {
+    public ResponseEntity<ApiResponse<Object>> delete(@PathVariable Long reviewId) {
         return reviewService.delete(reviewId);
     }
 
