@@ -8,14 +8,15 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.support.PageableExecutionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.habin.shinhan_cubeon_task.review.entity.QLecture.lecture;
 import static com.habin.shinhan_cubeon_task.review.entity.QReview.review;
 import static com.habin.shinhan_cubeon_task.user.entity.QUser.user;
 import static com.querydsl.core.types.Projections.fields;
+import static org.springframework.data.support.PageableExecutionUtils.getPage;
 
 @RequiredArgsConstructor
 public class QReviewRepositoryImpl implements QReviewRepository {
@@ -50,27 +51,29 @@ public class QReviewRepositoryImpl implements QReviewRepository {
                 .from(review)
                 .join(review.lecture, lecture);
 
-        return PageableExecutionUtils.getPage(fetch, pageRequest, countQuery::fetchOne);
+        return getPage(fetch, pageRequest, countQuery::fetchOne);
     }
 
     private OrderSpecifier<?>[] getOrderSpecifier(Boolean recent, Order grade) {
-        OrderSpecifier<?>[] orderSpecifiers = new OrderSpecifier[3];
-        orderSpecifiers[0] = review.favCount.desc();
+        List<OrderSpecifier<?>> orderSpecifiers = new ArrayList<>();
+        orderSpecifiers.add(review.favCount.desc());
 
-        if (recent) {
-            orderSpecifiers[1] = review.createdAt.desc();
+        if (recent != null && recent) {
+            orderSpecifiers.add(review.createdAt.desc());
         }
 
-        switch (grade) {
-            case ASC -> {
-                orderSpecifiers[2] = review.grade.asc();
-            }
-            case DESC -> {
-                orderSpecifiers[2] = review.grade.desc();
+        if(grade != null) {
+            switch (grade) {
+                case ASC -> {
+                    orderSpecifiers.add(review.grade.asc());
+                }
+                case DESC -> {
+                    orderSpecifiers.add(review.grade.desc());
+                }
             }
         }
 
-        return orderSpecifiers;
+        return orderSpecifiers.toArray(OrderSpecifier[]::new);
     }
 
 }
