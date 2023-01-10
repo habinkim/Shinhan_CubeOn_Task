@@ -1,8 +1,7 @@
-package com.habin.shinhan_cubeon_task.user.mapper;
+package com.habin.shinhan_cubeon_task.fav.mapper;
 
 import com.habin.shinhan_cubeon_task.common.mapper.EntityMapper;
-import com.habin.shinhan_cubeon_task.user.dto.SignUpRequestDto;
-import com.habin.shinhan_cubeon_task.user.entity.User;
+import com.habin.shinhan_cubeon_task.fav.entity.Fav;
 import org.mapstruct.*;
 
 @Mapper(
@@ -13,8 +12,11 @@ import org.mapstruct.*;
 		nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
 		nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
 )
-public interface UserMapper {
+public interface FavMapper {
 
-	User toEntity(SignUpRequestDto signUpRequestDto);
+	@Mapping(target = "favId", ignore = true)
+	@Mapping(target = "user", source = "userId")
+    @Mapping(target = "review", source = "reviewId")
+    Fav toEntity(String userId, Long reviewId);
 
 }

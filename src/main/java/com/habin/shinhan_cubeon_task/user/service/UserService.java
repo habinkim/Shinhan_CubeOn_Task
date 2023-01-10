@@ -2,7 +2,6 @@ package com.habin.shinhan_cubeon_task.user.service;
 
 import com.habin.shinhan_cubeon_task.common.dto.ApiResponse;
 import com.habin.shinhan_cubeon_task.user.dto.SignUpRequestDto;
-import com.habin.shinhan_cubeon_task.user.entity.User;
 import com.habin.shinhan_cubeon_task.user.mapper.UserMapper;
 import com.habin.shinhan_cubeon_task.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +19,11 @@ public class UserService {
 
     @Transactional
     public ResponseEntity<ApiResponse<Object>> signUp(SignUpRequestDto signUpRequestDto) {
-        User user = userMapper.toEntity(signUpRequestDto);
-        userRepository.save(user);
+        userRepository.findById(signUpRequestDto.getUserId())
+                .ifPresentOrElse(u -> {
+                    throw new IllegalArgumentException("이미 존재하는 아이디입니다.");
+                }, () -> userRepository.save(userMapper.toEntity(signUpRequestDto)));
+
         return ApiResponse.success();
     }
 }

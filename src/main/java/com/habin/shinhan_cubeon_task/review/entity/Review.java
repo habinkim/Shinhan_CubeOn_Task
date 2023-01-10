@@ -41,7 +41,7 @@ public class Review {
 
     @Column(nullable = false, length = 3)
     @Comment("리뷰 좋아요 개수")
-    private Integer likeCount;
+    private Integer favCount;
 
     @Column(nullable = false, length = 1000)
     @Comment("리뷰 본문")
@@ -62,11 +62,11 @@ public class Review {
     private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    @JoinColumn(nullable = false, name = "userId", referencedColumnName = "userId")
     private User user;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "lectureId", referencedColumnName = "lectureId")
+    @JoinColumn(nullable = false, name = "lectureId", referencedColumnName = "lectureId")
     private Lecture lecture;
 
 }

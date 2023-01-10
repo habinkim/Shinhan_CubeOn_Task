@@ -28,19 +28,19 @@ public class QReviewRepositoryImpl implements QReviewRepository {
         OrderSpecifier<?>[] orderSpecifiers = getOrderSpecifier(recent, grade);
 
         List<ReviewListDto> fetch = queryFactory.select(fields(ReviewListDto.class,
+                        lecture.lectureName,
                         review.reviewId,
                         review.grade,
-                        review.likeCount,
+                        review.favCount,
                         review.content,
                         review.createdAt,
                         review.updatedAt,
                         user.userId,
-                        user.nickname,
-                        lecture.lectureName
+                        user.nickname
                 ))
                 .from(review)
-                .join(review.user, user)
                 .join(review.lecture, lecture)
+                .join(review.user, user)
                 .offset(pageRequest.getOffset())
                 .limit(pageRequest.getPageSize())
                 .orderBy(orderSpecifiers)
@@ -48,14 +48,14 @@ public class QReviewRepositoryImpl implements QReviewRepository {
 
         JPAQuery<Long> countQuery = queryFactory.select(review.reviewId.count())
                 .from(review)
-                .join(review.user, user);
+                .join(review.lecture, lecture);
 
         return PageableExecutionUtils.getPage(fetch, pageRequest, countQuery::fetchOne);
     }
 
     private OrderSpecifier<?>[] getOrderSpecifier(Boolean recent, Order grade) {
         OrderSpecifier<?>[] orderSpecifiers = new OrderSpecifier[3];
-        orderSpecifiers[0] = review.likeCount.desc();
+        orderSpecifiers[0] = review.favCount.desc();
 
         if (recent) {
             orderSpecifiers[1] = review.createdAt.desc();

@@ -17,9 +17,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ReviewListDto {
 
+    private String lectureName;
     private Long reviewId;
     private Integer grade;
-    private Integer likeCount;
+    private Integer favCount;
     private String content;
 
     @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
@@ -32,7 +33,5 @@ public class ReviewListDto {
 
     private String userId;
     private String nickname;
-
-    private String lectureName;
 
 }
